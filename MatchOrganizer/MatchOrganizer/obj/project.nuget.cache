@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "75oGoOqAN7Iim4V0K2alkXU3ygr9kg7geis95g8u2z4FxbrksPaIkebiEMgcr9EmDyYbXkXSGmsMl9wqyyEutQ==",
+  "dgSpecHash": "CYakbjNBv056OGc5h1cR4wpPWybeaOghcr5/p9i/MH3yCA3DMH1bPErx13hLTLBjkPizwRALIJ3IBhcjbB6obA==",
   "success": true,
   "projectFilePath": "/home/lukas/škola/pv178/MatchOrganizer/MatchOrganizer/MatchOrganizer/MatchOrganizer.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/lukas/.nuget/packages/htmlagilitypack/1.11.33/htmlagilitypack.1.11.33.nupkg.sha512",
+    "/home/lukas/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512",
+    "/home/lukas/.nuget/packages/selenium.webdriver/4.0.0-beta2/selenium.webdriver.4.0.0-beta2.nupkg.sha512"
+  ],
   "logs": []
 }
