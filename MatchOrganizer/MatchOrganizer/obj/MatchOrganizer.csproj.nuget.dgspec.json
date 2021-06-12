@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/home/lukas/škola/pv178/MatchOrganizer/MatchOrganizer/MatchOrganizer/MatchOrganizer.csproj": {}
+    "C:\\Users\\lvavr\\source\\repos\\lukasvavrik\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer.csproj": {}
   },
   "projects": {
-    "/home/lukas/škola/pv178/MatchOrganizer/MatchOrganizer/MatchOrganizer/MatchOrganizer.csproj": {
+    "C:\\Users\\lvavr\\source\\repos\\lukasvavrik\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/lukas/škola/pv178/MatchOrganizer/MatchOrganizer/MatchOrganizer/MatchOrganizer.csproj",
+        "projectUniqueName": "C:\\Users\\lvavr\\source\\repos\\lukasvavrik\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer.csproj",
         "projectName": "MatchOrganizer",
-        "projectPath": "/home/lukas/škola/pv178/MatchOrganizer/MatchOrganizer/MatchOrganizer/MatchOrganizer.csproj",
-        "packagesPath": "/home/lukas/.nuget/packages/",
-        "outputPath": "/home/lukas/škola/pv178/MatchOrganizer/MatchOrganizer/MatchOrganizer/obj/",
+        "projectPath": "C:\\Users\\lvavr\\source\\repos\\lukasvavrik\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer.csproj",
+        "packagesPath": "C:\\Users\\lvavr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lvavr\\source\\repos\\lukasvavrik\\MatchOrganizer\\MatchOrganizer\\MatchOrganizer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/lukas/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\lvavr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -40,11 +42,15 @@
           "dependencies": {
             "HtmlAgilityPack": {
               "target": "Package",
-              "version": "[1.11.33, )"
+              "version": "[1.11.34, )"
             },
-            "Selenium.WebDriver": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[4.0.0-beta2, )"
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[5.0.7, )"
             }
           },
           "imports": [
@@ -62,7 +68,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/5.0.300/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       }
     }

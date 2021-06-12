@@ -1,9 +1,10 @@
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using HtmlAgilityPack;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace MatchOrganizer.Scraping
 {
@@ -51,10 +52,12 @@ namespace MatchOrganizer.Scraping
                     var round = matches[i * 7].InnerText.Trim();
                     round = round.Remove(round.Length - 1);
                     var date =  matches[i * 7 + 1].InnerText.Trim();
-                    var home =  matches[i * 7 + 2].InnerText.Trim();
+                    var home = matches[i * 7 + 2].InnerText.Trim();
+                    var homeUrl = Constants.StisBaseUrl + matches[i * 7 + 2].ChildNodes.ToList()[1].GetAttributeValue("href", "");
                     var guests = matches[i * 7 + 3].InnerText.Trim();
+                    var guestsUrl = Constants.StisBaseUrl + matches[i * 7 + 3].ChildNodes.ToList()[1].GetAttributeValue("href", "");
                     var result = matches[i * 7 + 4].InnerText.Trim();
-                    list.Add(new Match(int.Parse(round), ProcessDateTime(date), home, guests, result));
+                    list.Add(new Match(round, ProcessDateTime(date), home, homeUrl,  guests, guestsUrl, result));
                 }
                 return list;
             }
@@ -63,7 +66,7 @@ namespace MatchOrganizer.Scraping
                 return list;
             }
         }
-        
+
         public static List<Player> GetPlayers(string teamUrl)
         {
             var document = website.Load(teamUrl);
@@ -72,6 +75,16 @@ namespace MatchOrganizer.Scraping
                 .ToList();
             var players = new List<Player>();
             webElements.ForEach(node => players.Add(new Player(node.InnerText, Constants.StisBaseUrl + node.GetAttributeValue("href", ""))));
+            return players;
+        }
+
+        public static List<Player> GetAllClubPlayers(string clubUrl)
+        {
+            var document = website.Load(clubUrl);
+            var webElements =
+                document.DocumentNode.SelectNodes(
+                    "//div[@class = 'card-body pl-0 pr-0']/table//tr/td/a").ToList();
+            var players = new List<Player>();
             webElements.ForEach(node => players.Add(new Player(node.InnerText, Constants.StisBaseUrl + node.GetAttributeValue("href", ""))));
             return players;
         }
@@ -87,6 +100,10 @@ namespace MatchOrganizer.Scraping
             var tmpDate = date.Split(" ").ToList();
             tmpDate.RemoveAt(0);
             var timeParts = tmpDate[1].Split(":");
+            for (var i = 0; i < timeParts.Length; i++)
+            {
+                timeParts[i] = Regex.Replace(timeParts[i], "[^.0-9]", "");
+            }
             var dateParts = tmpDate[0].Split(".");
             return new DateTime(int.Parse(dateParts[2]), int.Parse(dateParts[1]), int.Parse(dateParts[0]), int.Parse(timeParts[0]), int.Parse(timeParts[1]), 0);
 

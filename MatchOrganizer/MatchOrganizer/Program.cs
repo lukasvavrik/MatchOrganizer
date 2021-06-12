@@ -9,23 +9,26 @@ namespace MatchOrganizer
     {
         static void Main(string[] args)
         {
-            var searchResult = Stis.SearchClubs("tj Žďár nad sázavou");
+            var searchResult = Stis.SearchClubs("tj Žďár nad Sázavou");
             ClubManager.SetClub(searchResult.First().Key, searchResult.First().Value);
+            ClubManager.AddPlayerToMatch(ClubManager.Teams.First().Players.First(), ClubManager.Teams.First().Matches.First());
+            ClubManager.AddPlayerToMatch(ClubManager.Teams.First().Players.ToList()[1], ClubManager.Teams.First().Matches.First());
+
+
             foreach (var team in ClubManager.Teams)
             {   
-                Console.WriteLine(team.Name + "\n");
+                Console.WriteLine(team.TeamName + "\n");
                 Console.WriteLine("Players: \n");
                 foreach (var players in team.Players)
                 {
-                    Console.WriteLine("    " +players.Name + "\n");
+                    Console.WriteLine("    " +players.PlayerName + "\n");
                 }
                 Console.WriteLine();
                 Console.WriteLine("Matches: \n");
                 foreach (var match in team.Matches)
                 {
-                    Console.WriteLine("    " + match.Round + ": " + match.Date + "\n    " + match.Home + ": " + match.Guests + "\n");
+                    Console.WriteLine("    " + match.Round + ": " + match.Date + "\n    " + match.HomeTeamName + ": " + match.GuestsTeamName + "\n");
                     Console.WriteLine("\n");
-
                 }
                 
                 Console.WriteLine("-----------------------------------------------------------------------------------\n");
