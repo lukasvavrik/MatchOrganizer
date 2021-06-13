@@ -12,8 +12,10 @@ namespace MatchOrganizer
             var searchResult = Stis.SearchClubs("tj Žďár nad Sázavou");
             ClubManager.SetClub(searchResult.First().Key, searchResult.First().Value);
             ClubManager.AddPlayerToMatch(ClubManager.Teams.First().Players.First(), ClubManager.Teams.First().Matches.First());
+            ClubManager.AddPlayerToMatch(ClubManager.Teams.First().Players.First(), ClubManager.Teams.First().Matches.ToList()[1]);
             ClubManager.AddPlayerToMatch(ClubManager.Teams.First().Players.ToList()[1], ClubManager.Teams.First().Matches.First());
-
+            var avPlayers = ClubManager.Teams.First().Matches.First().GetAvailablePlayers();
+            var selPlayers = ClubManager.Teams.First().Matches.First().GetSelectedPlayers();
 
             foreach (var team in ClubManager.Teams)
             {   

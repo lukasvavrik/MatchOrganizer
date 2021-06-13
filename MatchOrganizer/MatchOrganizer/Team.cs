@@ -41,7 +41,6 @@ namespace MatchOrganizer
             Matches = Stis.GetMatches(StisUrl);
             foreach (var match in Matches)
             {
-                //match.ThisTeam = stisUrl;
                 if (db.Matches.Count(match1 =>
                     (match1.Date == match.Date) && (match1.GuestsTeamName == match.GuestsTeamName) && (match.HomeTeamName == match1.HomeTeamName)) == 0)
                 {

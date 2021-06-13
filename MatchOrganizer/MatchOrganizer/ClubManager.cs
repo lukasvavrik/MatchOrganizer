@@ -46,7 +46,8 @@ namespace MatchOrganizer
 
             foreach (var m in player.SelectedToMatches)
             {
-                if (Math.Abs((m.Date.Date - match.Date.Date).Hours) < 3)
+                var a = Math.Abs((m.Date - match.Date).TotalHours);
+                if (Math.Abs((m.Date - match.Date).TotalHours) < 3)
                 {
                     return false;
                 }
@@ -63,6 +64,7 @@ namespace MatchOrganizer
             }
 
             using var db = new OrganizerDbContext();
+            match.Id = 0;
             player.SelectedToMatches.Add(match);
             db.Players
                 .Where(player1 => player1.StisUrl == player.StisUrl)

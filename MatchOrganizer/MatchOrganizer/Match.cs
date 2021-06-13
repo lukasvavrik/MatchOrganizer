@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using MatchOrganizer.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MatchOrganizer
@@ -19,7 +20,7 @@ namespace MatchOrganizer
         public string Result { get; set; }
 
         public Match() {}
-        
+
         public Match(string round, DateTime date, string home, string homeTeamUrl, string guests, string guestsTeamUrl, string result)
         {
             Round = round;
@@ -31,12 +32,63 @@ namespace MatchOrganizer
             Result = result;
         }
 
-        public List<Player> GetAvailablePlayers()
+        private List<Player> GetAllPlayers()
         {
             using var db = new OrganizerDbContext();
-            var players = db.Teams.First(team => team.Matches.Count(match => match.Id == Id) > 0).Players.ToList();
+
+            var matches = db.Teams
+                .Include(team => team.Players)
+                .Where(team => team.Matches
+                    .Any(match => match.Date == Date && match.HomeTeamName == HomeTeamName && match.GuestsTeamName == GuestsTeamName))
+                .ToList();
+
+            var players = new List<Player>();
+            matches.ForEach(team => players.AddRange(team.Players));
+
+            var allPlayers = db.Players.Include(player => player.SelectedToMatches).ToList();
+
+            var playersUrl = players.Select(player => player.StisUrl)
+                .Intersect(allPlayers.Select(player => player.StisUrl));
+
+            var listPlayers = new List<Player>();
+
+            foreach (var pl in allPlayers)
+            {
+                if (playersUrl.Contains(pl.StisUrl))
+                {
+                    listPlayers.Add(pl);
+                }
+            }
+
+            return listPlayers;
+        }
+
+        public List<Player> GetSelectedPlayers()
+        {
+            var listPlayers = GetAllPlayers();
+            var selectedPlayers = new List<Player>();
+            foreach (var pl in listPlayers)
+            {
+                foreach (var match in pl.SelectedToMatches)
+                {
+                    if (match.HomeTeamName == HomeTeamName && match.GuestsTeamName == GuestsTeamName &&
+                        match.Date == Date)
+                    {
+                        selectedPlayers.Add(pl);
+                        break;
+                    }
+                }
+            }
+
+            return selectedPlayers;
+        }
+
+        public List<Player> GetAvailablePlayers()
+        {
+
+            var listPlayers = GetAllPlayers();
             var availablePlayers = new List<Player>();
-            foreach (var pl in players)
+            foreach (var pl in listPlayers)
             {
                 if (ClubManager.IsAvailable(pl, this))
                 {
@@ -44,7 +96,6 @@ namespace MatchOrganizer
                 }
             }
             return availablePlayers;
-
         }
 
 
