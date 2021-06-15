@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MatchOrganizer;
+using MatchOrganizerFront;
+
 
 namespace MatchOrganizerFront
 {
@@ -19,9 +21,8 @@ namespace MatchOrganizerFront
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             if (ClubManager.IsClubSelected())
-            {
-                ClubManager.SetClub();
-                Application.Run(new MatchOrganizer());
+            {   
+                Application.Run(new MatchOrganizerFron.MatchOrganizer());
             }
             else
             {

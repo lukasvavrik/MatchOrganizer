@@ -11,6 +11,7 @@ using MatchOrganizer;
 using MatchOrganizer.Database;
 using MatchOrganizer.Scraping;
 
+
 namespace MatchOrganizerFront
 {
     public partial class SearchClub : Form
@@ -47,7 +48,7 @@ namespace MatchOrganizerFront
             var url = SearchClubResults[name];
             ClubManager.SetClub(name, url);
             this.Hide();
-            var formMatchOrganizer = new MatchOrganizer();
+            var formMatchOrganizer = new MatchOrganizerFron.MatchOrganizer();
             formMatchOrganizer.Closed += (s, args) => this.Close();
             formMatchOrganizer.Show();
         }

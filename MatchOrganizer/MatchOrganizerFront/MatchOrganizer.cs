@@ -5,19 +5,37 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MatchOrganizer;
+using MatchOrganizerFront;
 
-namespace MatchOrganizerFront
+namespace MatchOrganizerFron
 {
     public partial class MatchOrganizer : Form
     {
         private Team selectedTeam;
+
+        private LoadingScreen loadingScreen;
         public MatchOrganizer()
         {
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            ClubManager.SetClub();
+            if (loadingScreen != null)
+            {
+                loadingScreen.BeginInvoke(new Action((() => loadingScreen.Close())));
+
+            }
             InitializeComponent();
+            t.Interrupt();
+            WindowState = FormWindowState.Minimized;
+            Show();
+            WindowState = FormWindowState.Normal;
             WindowState = FormWindowState.Maximized;
+            //this.BringToFront();
             foreach (var team in ClubManager.Teams)
             {
                 TeamsDataGrid.Rows.Add(team.TeamName);
@@ -32,6 +50,12 @@ namespace MatchOrganizerFront
             {   
                 dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
             }
+        }
+
+        public void StartForm()
+        {
+            loadingScreen = new LoadingScreen();
+            Application.Run(loadingScreen);
         }
 
         private void TeamsDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
