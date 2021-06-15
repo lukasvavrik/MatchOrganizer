@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using MatchOrganizer.Database;
+using MatchOrganizer.Scraping;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MatchOrganizer
 {
@@ -18,6 +17,7 @@ namespace MatchOrganizer
         public string GuestsTeamName { get; set; }
         public string GuestsTeamUrl { get; set; }
         public string Result { get; set; }
+        public string MyTeamName { private get; set; }
 
         public Match() {}
 
@@ -83,9 +83,9 @@ namespace MatchOrganizer
             return selectedPlayers;
         }
 
+
         public List<Player> GetAvailablePlayers()
         {
-
             var listPlayers = GetAllPlayers();
             var availablePlayers = new List<Player>();
             foreach (var pl in listPlayers)
@@ -98,6 +98,20 @@ namespace MatchOrganizer
             return availablePlayers;
         }
 
+        public List<Player> GetOpponentsPlayers()
+        {
+            var opponentUrl = "";
+            if (MyTeamName == HomeTeamName)
+            {
+                opponentUrl = GuestsTeamUrl;
+            }
+            else
+            {
+                opponentUrl = HomeTeamUrl;
+            }
+
+            return Stis.GetPlayers(opponentUrl);
+        }
 
     }
 }

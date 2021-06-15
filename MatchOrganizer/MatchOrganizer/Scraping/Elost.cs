@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace MatchOrganizer.Scraping
@@ -8,11 +9,11 @@ namespace MatchOrganizer.Scraping
     {
         private static HtmlWeb website = new HtmlWeb();
 
-        public static Tuple<int, int> GetWinningsStatistics(string playerStisUrl, string opponentName)
+        public static async Task<Tuple<int, int>> GetWinningsStatistics(string playerStisUrl, string opponentName)
         {
             var c = GetEloUrl(playerStisUrl);
             var a = GetEloUrl(playerStisUrl) + Constants.EloFiltr + opponentName;
-            var document = website.Load(GetEloUrl(playerStisUrl) + Constants.EloFiltr + opponentName);
+            var document = await website.LoadFromWebAsync(GetEloUrl(playerStisUrl) + Constants.EloFiltr + opponentName);
             var wins = 0;
             var loss = 0;
             var winStats = new Tuple<int, int>(0,0);

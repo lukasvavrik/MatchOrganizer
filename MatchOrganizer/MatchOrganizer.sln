@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchOrganizer", "MatchOrganizer\MatchOrganizer.csproj", "{FDA2D257-6F7C-44B4-85FC-0BFE876E332F}"
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31402.337
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MatchOrganizer", "MatchOrganizer\MatchOrganizer.csproj", "{FDA2D257-6F7C-44B4-85FC-0BFE876E332F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchOrganizerFront", "MatchOrganizerFront\MatchOrganizerFront.csproj", "{348A12B4-9874-42C4-AEC3-8BF42DEBED87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +17,15 @@ Global
 		{FDA2D257-6F7C-44B4-85FC-0BFE876E332F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FDA2D257-6F7C-44B4-85FC-0BFE876E332F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FDA2D257-6F7C-44B4-85FC-0BFE876E332F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{348A12B4-9874-42C4-AEC3-8BF42DEBED87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{348A12B4-9874-42C4-AEC3-8BF42DEBED87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{348A12B4-9874-42C4-AEC3-8BF42DEBED87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{348A12B4-9874-42C4-AEC3-8BF42DEBED87}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {611D00AA-0664-47CB-8B08-B55C8C646BCE}
 	EndGlobalSection
 EndGlobal
