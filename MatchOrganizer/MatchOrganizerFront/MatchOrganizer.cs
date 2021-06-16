@@ -18,6 +18,40 @@ namespace MatchOrganizerFron
         private Team selectedTeam;
 
         private LoadingScreen loadingScreen;
+
+        public MatchOrganizer(string name, string clubUrl)
+        {
+            Thread t = new Thread(new ThreadStart(StartForm));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+            ClubManager.SetClub(name, clubUrl);
+            if (loadingScreen != null)
+            {
+                loadingScreen.BeginInvoke(new Action((() => loadingScreen.Close())));
+
+            }
+            InitializeComponent();
+            t.Interrupt();
+            WindowState = FormWindowState.Minimized;
+            Show();
+            WindowState = FormWindowState.Normal;
+            WindowState = FormWindowState.Maximized;
+            foreach (var team in ClubManager.Teams)
+            {
+                TeamsDataGrid.Rows.Add(team.TeamName);
+            }
+            selectedTeam = ClubManager.Teams[0];
+            dataGridPlayers.Rows.Clear();
+            foreach (var player in selectedTeam.Players)
+            {
+                dataGridPlayers.Rows.Add(player.PlayerName);
+            }
+            foreach (var match in selectedTeam.Matches)
+            {
+                dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
+            }
+        }
+
         public MatchOrganizer()
         {
             Thread t = new Thread(new ThreadStart(StartForm));
@@ -35,7 +69,6 @@ namespace MatchOrganizerFron
             Show();
             WindowState = FormWindowState.Normal;
             WindowState = FormWindowState.Maximized;
-            //this.BringToFront();
             foreach (var team in ClubManager.Teams)
             {
                 TeamsDataGrid.Rows.Add(team.TeamName);

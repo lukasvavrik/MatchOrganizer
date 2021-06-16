@@ -46,9 +46,8 @@ namespace MatchOrganizerFront
             var rowIndex = e.RowIndex;
             var name = SearchResults.Rows[rowIndex].Cells[0].FormattedValue.ToString();
             var url = SearchClubResults[name];
-            ClubManager.SetClub(name, url);
             this.Hide();
-            var formMatchOrganizer = new MatchOrganizerFron.MatchOrganizer();
+            var formMatchOrganizer = new MatchOrganizerFron.MatchOrganizer(name, url);
             formMatchOrganizer.Closed += (s, args) => this.Close();
             formMatchOrganizer.Show();
         }
@@ -60,6 +59,11 @@ namespace MatchOrganizerFront
         }
 
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ClubSearchTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

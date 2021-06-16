@@ -75,6 +75,17 @@ namespace MatchOrganizer.Scraping
                 .ToList();
             var players = new List<Player>();
             webElements.ForEach(node => players.Add(new Player(node.InnerText, Constants.StisBaseUrl + node.GetAttributeValue("href", ""))));
+            //foreach (var player in players)
+            //{
+            //    var url = player.StisUrl.Split("/");
+            //    var cleanUrl = "";
+            //    for (var i = 0; i < url.Length - 1; i++)
+            //    {
+            //        cleanUrl += url[i];
+            //    }
+
+            //    player.StisUrl = cleanUrl;
+            //}
             return players;
         }
 

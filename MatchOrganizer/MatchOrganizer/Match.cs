@@ -56,17 +56,18 @@ namespace MatchOrganizer
             {
                 if (playersUrl.Contains(pl.StisUrl))
                 {
+                    var url = pl.StisUrl.Split("/").SkipLast(1).Aggregate("", (s, s1) => s+="/" + s1).Remove(0,1).ToString();
+                    allPlayers.Where(player => player.StisUrl.Contains(url)).ToList().ForEach(player => pl.SelectedToMatches.AddRange(player.SelectedToMatches));
                     listPlayers.Add(pl);
                 }
             }
-
             return listPlayers;
         }
 
         public List<Player> GetSelectedPlayers()
         {
             var listPlayers = GetAllPlayers();
-            var selectedPlayers = new List<Player>();
+            var selectedPlayers = new HashSet<Player>();
             foreach (var pl in listPlayers)
             {
                 foreach (var match in pl.SelectedToMatches)
@@ -80,7 +81,7 @@ namespace MatchOrganizer
                 }
             }
 
-            return selectedPlayers;
+            return selectedPlayers.ToList();
         }
 
 

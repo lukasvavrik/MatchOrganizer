@@ -134,6 +134,7 @@ namespace MatchOrganizerFront
             this.ClubSearchTextBox.Name = "ClubSearchTextBox";
             this.ClubSearchTextBox.Size = new System.Drawing.Size(610, 27);
             this.ClubSearchTextBox.TabIndex = 1;
+            this.ClubSearchTextBox.TextChanged += new System.EventHandler(this.ClubSearchTextBox_TextChanged);
             // 
             // tableLayoutPanel2
             // 
