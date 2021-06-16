@@ -40,16 +40,21 @@ namespace MatchOrganizerFron
             {
                 TeamsDataGrid.Rows.Add(team.TeamName);
             }
-            selectedTeam = ClubManager.Teams[0];
-            dataGridPlayers.Rows.Clear();
-            foreach (var player in selectedTeam.Players)
+
+            if (ClubManager.Teams.Count > 0)
             {
-                dataGridPlayers.Rows.Add(player.PlayerName);
+                selectedTeam = ClubManager.Teams[0];
+                dataGridPlayers.Rows.Clear();
+                foreach (var player in selectedTeam.Players)
+                {
+                    dataGridPlayers.Rows.Add(player.PlayerName);
+                }
+                foreach (var match in selectedTeam.Matches)
+                {
+                    dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
+                }
             }
-            foreach (var match in selectedTeam.Matches)
-            {
-                dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
-            }
+          
         }
 
         public MatchOrganizer()
@@ -73,15 +78,18 @@ namespace MatchOrganizerFron
             {
                 TeamsDataGrid.Rows.Add(team.TeamName);
             }
-            selectedTeam = ClubManager.Teams[0];
-            dataGridPlayers.Rows.Clear();
-            foreach (var player in selectedTeam.Players)
+            if (ClubManager.Teams.Count > 0)
             {
-                dataGridPlayers.Rows.Add(player.PlayerName);
-            }
-            foreach (var match in selectedTeam.Matches)
-            {   
-                dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
+                selectedTeam = ClubManager.Teams[0];
+                dataGridPlayers.Rows.Clear();
+                foreach (var player in selectedTeam.Players)
+                {
+                    dataGridPlayers.Rows.Add(player.PlayerName);
+                }
+                foreach (var match in selectedTeam.Matches)
+                {
+                    dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
+                }
             }
         }
 
