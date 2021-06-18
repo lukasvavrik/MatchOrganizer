@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using MatchOrganizer.Database;
 using MatchOrganizer.Scraping;
-using Microsoft.EntityFrameworkCore;
 
 namespace MatchOrganizer
 {
@@ -50,11 +47,6 @@ namespace MatchOrganizer
             {
                 return false;
             }
-
-            //if (match.Date < DateTime.Now)
-            //{
-            //    return false;
-            //}
 
             foreach (var m in player.SelectedToMatches)
             {
@@ -102,11 +94,6 @@ namespace MatchOrganizer
             {
                 player.SelectedToMatches.Remove(m);
                 db.Matches.Remove(m);
-                //db.Players
-                //    .Where(player1 => player1.StisUrl == player.StisUrl)
-                //    .ToList()
-                //    .ForEach(player1 => player1.SelectedToMatches.Remove(m));
-
             }
             db.SaveChanges();
         }

@@ -33,19 +33,30 @@ namespace MatchOrganizer
                 else
                 {
                     pl.Id = db.Players.First(player => player.StisUrl == pl.StisUrl).Id;
-                    pl.SelectedToMatches = db.Players.Include(player => player.SelectedToMatches).First(player => player.StisUrl == pl.StisUrl)
+                    pl.SelectedToMatches = db.Players.Include(player => player.SelectedToMatches)
+                        .First(player => player.StisUrl == pl.StisUrl)
                         .SelectedToMatches;
                 }
             }
 
+            
             Matches = Stis.GetMatches(StisUrl);
             foreach (var match in Matches)
             {
                 match.MyTeamName = TeamName;
                 if (db.Matches.Count(match1 =>
-                    (match1.Date == match.Date) && (match1.GuestsTeamName == match.GuestsTeamName) && (match.HomeTeamName == match1.HomeTeamName)) == 0)
-                {
+                    match1.Round == match.Round && match1.GuestsTeamName == match.GuestsTeamName && match.HomeTeamName == match1.HomeTeamName) == 0)
+                {   
+
                     db.Matches.Add(match);
+                }
+                else
+                {
+                    var oldMatch = db.Matches.First(match1 =>
+                        match1.Round == match.Round && match1.GuestsTeamName == match.GuestsTeamName &&
+                        match.HomeTeamName == match1.HomeTeamName);
+                    oldMatch.Date = match.Date;
+                    oldMatch.Result = match.Result;
                 }
                
             }
