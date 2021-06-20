@@ -53,7 +53,6 @@ namespace MatchOrganizerFront
             this.label1.Size = new System.Drawing.Size(71, 36);
             this.label1.TabIndex = 0;
             this.label1.Text = "Search";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // ButtonSearch
             // 
@@ -104,7 +103,6 @@ namespace MatchOrganizerFront
             this.Results.Size = new System.Drawing.Size(58, 20);
             this.Results.TabIndex = 4;
             this.Results.Text = "Results:";
-            this.Results.Click += new System.EventHandler(this.label2_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -134,7 +132,6 @@ namespace MatchOrganizerFront
             this.ClubSearchTextBox.Name = "ClubSearchTextBox";
             this.ClubSearchTextBox.Size = new System.Drawing.Size(610, 27);
             this.ClubSearchTextBox.TabIndex = 1;
-            this.ClubSearchTextBox.TextChanged += new System.EventHandler(this.ClubSearchTextBox_TextChanged);
             // 
             // tableLayoutPanel2
             // 
@@ -154,7 +151,6 @@ namespace MatchOrganizerFront
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(776, 426);
             this.tableLayoutPanel2.TabIndex = 6;
-            this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
             // 
             // SearchClub
             // 

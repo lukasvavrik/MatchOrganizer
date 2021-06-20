@@ -85,12 +85,12 @@ namespace MatchOrganizerFront
             // Title1
             // 
             this.Title1.AutoSize = true;
+            this.Title1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Title1.Location = new System.Drawing.Point(12, 9);
             this.Title1.Name = "Title1";
-            this.Title1.Size = new System.Drawing.Size(50, 20);
+            this.Title1.Size = new System.Drawing.Size(65, 28);
             this.Title1.TabIndex = 1;
             this.Title1.Text = "label1";
-            this.Title1.Click += new System.EventHandler(this.label1_Click);
             // 
             // SaveChanges
             // 
@@ -113,7 +113,6 @@ namespace MatchOrganizerFront
             this.textBoxStats.Name = "textBoxStats";
             this.textBoxStats.Size = new System.Drawing.Size(422, 411);
             this.textBoxStats.TabIndex = 3;
-            this.textBoxStats.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // tableLayoutPanel1
             // 
@@ -148,7 +147,6 @@ namespace MatchOrganizerFront
             this.label1.Size = new System.Drawing.Size(126, 20);
             this.label1.TabIndex = 6;
             this.label1.Text = "Loading statistics:";
-            this.label1.Click += new System.EventHandler(this.label1_Click_1);
             // 
             // SelectSquad
             // 

@@ -1,5 +1,5 @@
 ﻿
-namespace MatchOrganizerFron
+namespace MatchOrganizerFront
 {
     partial class MatchOrganizer
     {
@@ -98,7 +98,6 @@ namespace MatchOrganizerFron
             this.dataGridPlayers.RowTemplate.Height = 29;
             this.dataGridPlayers.Size = new System.Drawing.Size(315, 513);
             this.dataGridPlayers.TabIndex = 1;
-            this.dataGridPlayers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // AllPlayers
             // 
@@ -188,7 +187,6 @@ namespace MatchOrganizerFron
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 491F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(1073, 519);
             this.tableLayoutPanel1.TabIndex = 3;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // SelectNewClub
             // 
@@ -228,7 +226,6 @@ namespace MatchOrganizerFron
             this.Controls.Add(this.tableLayoutPanel2);
             this.Name = "MatchOrganizer";
             this.Text = "MatchOrganizer";
-            this.Load += new System.EventHandler(this.MatchOrganizer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.TeamsDataGrid)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridPlayers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridMatches)).EndInit();

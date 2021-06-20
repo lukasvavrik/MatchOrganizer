@@ -2,9 +2,8 @@
 using System.Threading;
 using System.Windows.Forms;
 using MatchOrganizer;
-using MatchOrganizerFront;
 
-namespace MatchOrganizerFron
+namespace MatchOrganizerFront
 {
     public partial class MatchOrganizer : Form
     {
@@ -18,11 +17,7 @@ namespace MatchOrganizerFron
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             ClubManager.SetClub(name, clubUrl);
-            if (loadingScreen != null)
-            {
-                loadingScreen.BeginInvoke(new Action((() => loadingScreen.Close())));
-
-            }
+            loadingScreen?.BeginInvoke(new Action((() => loadingScreen.Close())));
             InitializeComponent();
             t.Interrupt();
             SetInitValues();
@@ -34,11 +29,7 @@ namespace MatchOrganizerFron
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
             ClubManager.SetClub();
-            if (loadingScreen != null)
-            {
-                loadingScreen.BeginInvoke(new Action((() => loadingScreen.Close())));
-
-            }
+            loadingScreen?.BeginInvoke(new Action((() => loadingScreen.Close())));
             InitializeComponent();
             t.Interrupt();
             SetInitValues();
@@ -54,18 +45,25 @@ namespace MatchOrganizerFron
             {
                 TeamsDataGrid.Rows.Add(team.TeamName);
             }
-            if (ClubManager.Teams.Count > 0)
+
+            if (ClubManager.Teams.Count == 0)
             {
-                selectedTeam = ClubManager.Teams[0];
-                dataGridPlayers.Rows.Clear();
-                foreach (var player in selectedTeam.Players)
-                {
-                    dataGridPlayers.Rows.Add(player.PlayerName);
-                }
-                foreach (var match in selectedTeam.Matches)
-                {
-                    dataGridMatches.Rows.Add(match.Round, match.Date, match.HomeTeamName, match.GuestsTeamName, match.Result, "Select squad");
-                }
+                return;
+            }
+
+            selectedTeam = ClubManager.Teams[0];
+            dataGridPlayers.Rows.Clear();
+            foreach (var player in selectedTeam.Players)
+            {
+                dataGridPlayers.Rows.Add(player.PlayerName);
+            }
+            foreach (var match in selectedTeam.Matches)
+            {
+                dataGridMatches.Rows.Add(match.Round, 
+                    match.Date, match.HomeTeamName, 
+                    match.GuestsTeamName,
+                    match.Result, 
+                    Constants.SelectSquadButtonText);
             }
         }
 
@@ -77,9 +75,7 @@ namespace MatchOrganizerFron
 
         private void TeamsDataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var rowIndex = e.RowIndex;
-            var teamName = TeamsDataGrid.Rows[rowIndex].Cells[0].FormattedValue.ToString();
-            selectedTeam = ClubManager.Teams[rowIndex];
+            selectedTeam = ClubManager.Teams[e.RowIndex];
             dataGridPlayers.Rows.Clear();
             foreach (var player in selectedTeam.Players)
             {
@@ -92,16 +88,6 @@ namespace MatchOrganizerFron
             }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
-        private void MatchOrganizer_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
             var selectSquad = new SelectSquad(selectedTeam.Matches[e.RowIndex]);
@@ -111,15 +97,11 @@ namespace MatchOrganizerFron
 
         private void SelectNewClub_Click(object sender, EventArgs e)
         {
-            this.Hide();
+            Hide();
             var formSearchClub = new SearchClub();
             formSearchClub.Closed += (s, args) => this.Close();
             formSearchClub.Show();
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
     }
 }

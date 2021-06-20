@@ -12,7 +12,6 @@ namespace MatchOrganizer
         public static string ClubStisUrl { get; set; }
         public static List<Team> Teams { get; set; }
 
-
         public static void SetClub()
         {
             SetClub(GetClubName(), GetClubUrl());
@@ -31,12 +30,9 @@ namespace MatchOrganizer
                 db.ClubUrl.Add(clubUrlDb);
             }
            
-            foreach (var team in Teams)
+            foreach (var team in Teams.Where(team => db.Teams.Count(team1 => team1.TeamName == team.TeamName) == 0))
             {
-                if (db.Teams.Count(team1 => team1.TeamName == team.TeamName) == 0)
-                {
-                    db.Teams.Add(team);
-                }
+                db.Teams.Add(team);
             }
             db.SaveChanges();
         }
@@ -48,16 +44,7 @@ namespace MatchOrganizer
                 return false;
             }
 
-            foreach (var m in player.SelectedToMatches)
-            {
-                var a = Math.Abs((m.Date - match.Date).TotalHours);
-                if (Math.Abs((m.Date - match.Date).TotalHours) < 3)
-                {
-                    return false;
-                }
-            }
-
-            return true;
+            return player.SelectedToMatches.All(m => !(Math.Abs((m.Date - match.Date).TotalHours) < 3));
         }
         
         public static void AddPlayerToMatch(Player player, Match match)
@@ -81,15 +68,9 @@ namespace MatchOrganizer
         {
             using var db = new OrganizerDbContext();
             var matches = player.SelectedToMatches;
-            var matchesToDelete = new List<Match>();
-            foreach (var m in matches)
-            {
-                if (m.Date == match.Date && m.HomeTeamName == match.HomeTeamName &&
-                    m.GuestsTeamName == match.GuestsTeamName)
-                {
-                    matchesToDelete.Add(m);
-                }
-            }
+            var matchesToDelete = matches
+                .Where(m => m.Date == match.Date && m.HomeTeamName == match.HomeTeamName && m.GuestsTeamName == match.GuestsTeamName)
+                .ToList();
             foreach (var m in matchesToDelete)
             {
                 player.SelectedToMatches.Remove(m);

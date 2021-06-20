@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,11 +11,11 @@ namespace MatchOrganizerFront
 {
     public partial class SelectSquad : Form
     {
-        private Match match;
-        private List<Player> selectedPlayers;
+        private readonly Match match;
+        private readonly List<Player> selectedPlayers;
         private List<Player> availablePlayers;
-        private List<Player> opponentPlayers;
-        private Player[] currentSelectedPlayers = new Player[5];
+        private readonly List<Player> opponentPlayers;
+        private readonly Player[] currentSelectedPlayers = new Player[5];
         public SelectSquad(Match match)
         {
             this.match = match;
@@ -29,12 +26,10 @@ namespace MatchOrganizerFront
             opponentPlayers = match.GetOpponentsPlayers();
             dataGridSquad1.CellValueChanged += new DataGridViewCellEventHandler(dataGridView1_CellValueChanged);
             dataGridSquad1.CurrentCellDirtyStateChanged += new EventHandler(dataGridView1_CurrentCellDirtyStateChanged);
-
         }
 
         private void SelectSquad_Load(object sender, EventArgs e)
         {
-
             for (var i = 0; i < 5; i++)
             {
                 var values = new DataGridViewComboBoxCell();
@@ -43,13 +38,14 @@ namespace MatchOrganizerFront
                 values.DataSource = list;
                 dataGridSquad1.Rows.Add();
                 dataGridSquad1.Rows[i].Cells[0] = values;
-                dataGridSquad1.Rows[i].Cells[1].Value = "Stats";
+                dataGridSquad1.Rows[i].Cells[1].Value = Constants.StatsButtonText;
 
-                if (selectedPlayers.Count > i)
+                if (selectedPlayers.Count <= i)
                 {
-                    dataGridSquad1.Rows[i].DefaultCellStyle.NullValue = selectedPlayers[i].PlayerName;
-                    currentSelectedPlayers[i] = selectedPlayers[i];
+                    continue;
                 }
+                dataGridSquad1.Rows[i].DefaultCellStyle.NullValue = selectedPlayers[i].PlayerName;
+                currentSelectedPlayers[i] = selectedPlayers[i];
             }
         }
 
@@ -64,32 +60,34 @@ namespace MatchOrganizerFront
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewComboBoxCell cb = (DataGridViewComboBoxCell)dataGridSquad1.Rows[e.RowIndex].Cells[0];
-            if (cb.Value != null)
+            if (cb.Value == null)
             {
-                var items = cb.Items;
-                var position = 0;
-                for (var i = 0; i < items.Count; i++)
+                return;
+            }
+            var items = cb.Items;
+            var position = 0;
+            for (var i = 0; i < items.Count; i++)
+            {
+                if (!items[i].Equals(cb.Value))
                 {
-                    if (items[i].Equals(cb.Value))
-                    {
-                        position = i;
-                        break;
-                    }
+                    continue;
                 }
-                currentSelectedPlayers[cb.RowIndex] = availablePlayers[position];
-                availablePlayers = availablePlayers.Except(currentSelectedPlayers).ToList();
+                position = i;
+                break;
+            }
+            currentSelectedPlayers[cb.RowIndex] = availablePlayers[position];
+            availablePlayers = availablePlayers.Except(currentSelectedPlayers).ToList();
 
-                for (var i = 0; i < 5; i++)
+            for (var i = 0; i < 5; i++)
+            {
+                var values = new DataGridViewComboBoxCell();
+                var list = new List<string>();
+                availablePlayers.ForEach(player => list.Add(player.PlayerName));
+                values.DataSource = list;
+                dataGridSquad1.Rows[i].Cells[0] = values;
+                if (currentSelectedPlayers[i] != null)
                 {
-                    var values = new DataGridViewComboBoxCell();
-                    var list = new List<string>();
-                    availablePlayers.ForEach(player => list.Add(player.PlayerName));
-                    values.DataSource = list;
-                    dataGridSquad1.Rows[i].Cells[0] = values;
-                    if (currentSelectedPlayers[i] != null)
-                    {
-                        dataGridSquad1.Rows[i].DefaultCellStyle.NullValue = currentSelectedPlayers[i].PlayerName;
-                    }
+                    dataGridSquad1.Rows[i].DefaultCellStyle.NullValue = currentSelectedPlayers[i].PlayerName;
                 }
             }
         }
@@ -107,7 +105,7 @@ namespace MatchOrganizerFront
                     stats.AppendLine(currentSelectedPlayers[rowIndex].PlayerName + " vs " + opPlayer.PlayerName + ": " +
                                      winningsStatistics.Item1 + " : " + winningsStatistics.Item2);
 
-                    progressReport.PercentComplete = (count * 100) / opponentPlayers.Count;
+                    progressReport.PercentComplete = count * 100 / opponentPlayers.Count;
                     progress.Report(progressReport);
                     count++;
                 }
@@ -126,13 +124,7 @@ namespace MatchOrganizerFront
                 progressBarStats.Update();
             };
 
-
             textBoxStats.Text = await GetStats(e.RowIndex, progress);
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void SaveChanges_Click_1(object sender, EventArgs e)
@@ -143,7 +135,6 @@ namespace MatchOrganizerFront
                 ClubManager.DeletePlayerFromMatch(player, match);
             }
 
-            var a = match.GetSelectedPlayers();
 ;           foreach (var player in currentSelectedPlayers)
             {
                 if (player != null)
@@ -152,16 +143,6 @@ namespace MatchOrganizerFront
                 }
             }
             Close();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click_1(object sender, EventArgs e)
-        {
-
         }
     }
 }

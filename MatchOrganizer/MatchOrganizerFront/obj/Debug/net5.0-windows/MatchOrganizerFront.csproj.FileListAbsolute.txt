@@ -60,5 +60,5 @@ C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrgan
 C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrganizerFront\bin\Debug\net5.0-windows\MatchOrganizer.pdb
 C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrganizerFront\obj\Debug\net5.0-windows\MatchOrganizerFront.csproj.CopyComplete
 C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrganizerFront\obj\Debug\net5.0-windows\MatchOrganizerFront.SelectSquad.resources
-C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrganizerFront\obj\Debug\net5.0-windows\MatchOrganizerFron.MatchOrganizer.resources
 C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrganizerFront\obj\Debug\net5.0-windows\MatchOrganizerFront.LoadingScreen.resources
+C:\Users\lvavr\source\repos\lukasvavrik\MatchOrganizer\MatchOrganizer\MatchOrganizerFront\obj\Debug\net5.0-windows\MatchOrganizerFront.MatchOrganizer.resources
